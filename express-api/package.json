@@ -9,7 +9,7 @@
     "dev": "ts-node src/index.ts"
   },
   "author": "Yeung Chun Siu",
-  "license": "ISC",
+  "license": "GNU GPLv3",
   "dependencies": {
     "express": "^4.19.2"
   },
