@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+  redis:
+    build: ./redis-db/.
+    container_name: catch_game_db
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    env_file:
+      - .env
+    networks:
+      - catch_game_network
+
+  express-api:
+    build: ./express-api/.
+    container_name: catch_game_api
+    restart: unless-stopped
+    volumes:
+      - ./express-api:/usr/src/app
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+    env_file:
+      - .env
+    networks:
+      - catch_game_network
+    depends_on:
+      - redis
+
+networks:
+  catch_game_network:
+    driver: bridge
+
+volumes:
+  redis_data:

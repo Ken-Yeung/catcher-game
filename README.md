@@ -1,0 +1,53 @@
+# Full-Stack Application with ReactJS, ExpressJS, Redis, and Docker
+```
+Name: Cathcer
+Description: A catch game web application
+```
+## Table of Contents
+
+- [Full-Stack Application with ReactJS, ExpressJS, Redis, and Docker](#full-stack-application-with-reactjs-expressjs-redis-and-docker)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Prerequisites](#prerequisites)
+  - [Configuration](#configuration)
+  - [Installation](#installation)
+  - [Usage](#usage)
+
+## About
+Thank you for considering me for the Software Engineer role at Sandbox VR. I'm excited about the opportunity to showcase my skills through the coding project you've provided. I appreciate the detailed instructions and the assets included. I'm eager to contribute to your team and look forward to the next steps in the process. 
+
+This project demonstrates a full-stack application setup using ReactJS for the frontend, ExpressJS for the backend, Redis as the database, and Docker for containerization. It showcases a scalable and maintainable setup for modern web applications.
+
+## Prerequisites
+- Docker installed
+- Docker Version: `4.28.0`
+
+## Configuration
+Modify Redis Password at `./.env`
+```
+REDIS_PW={Your Password}
+```
+
+Modify ExpressJS Port at `./docker-compose.yml`
+```
+ports:
+    - "{Your Port}:{Your Port}"
+environment:
+    - PORT={Your Port}
+```
+
+* After modified configuration run will have to build the docker image again
+
+## Installation
+To run at the first time
+```
+docker compose up -d
+```
+Wanna rebuild again
+```
+docker compose up -d --build
+```
+
+## Usage
+- Go to [localhost website default port 3000](http://localhost:3000)
+- And Have Fun
