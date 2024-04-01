@@ -10,6 +10,8 @@ services:
       - .env
     networks:
       - catch_game_network
+    ports:
+      - "6379:6379"
 
   express-api:
     build: ./express-api/.
