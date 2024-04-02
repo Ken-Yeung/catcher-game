@@ -1,40 +1,49 @@
-import { createClient } from 'redis';
+import { createClient } from "redis";
 
 type RedisClient = ReturnType<typeof createClient>;
 
-class RedisController {
- private client: RedisClient;
+class RedisClassController {
+  private client: RedisClient;
+  private host: string;
+  private port: number;
+  private user: string;
+  private password: string;
+  private db: number;
+  private connectionUrl: string;
 
- constructor(private host: string = '127.0.0.1', private port: number = 6379, private password: string, private db: number = 0) {
-    this.client = createClient({
-      host: this.host,
-      port: this.port,
-      password: this.password,
-      db: this.db
-    });
+  constructor() {
+    this.host = process.env.REDIS_HOST ?? "127.0.0.1";
+    this.port = parseInt(process.env.REDIS_PORT ?? "6379");
+    this.user = process.env.REDIS_USER ?? "admin";
+    this.password = process.env.REDIS_PW!;
+    this.db = parseInt(process.env.REDIS_DB ?? "0");
 
-    this.client.on('error', (error) => {
-      console.error(`Redis client error: ${error}`);
-    });
+    this.connectionUrl = `redis://${this.user}:${this.password}@${this.host}:${this.port}/${this.db}`;
 
-    this.client.on('connect', () => {
-      console.log(`Connected to Redis at ${this.host}:${this.port}`);
-    });
- }
+    this.client = createClient({ url: this.connectionUrl });
+  }
 
- public switchDatabase(db: number): void {
-    this.client.select(db, (err) => {
-      if (err) {
-        console.error(`Failed to switch to database ${db}: ${err}`);
-      } else {
-        console.log(`Switched to database ${db}`);
-      }
-    });
- }
+  // public switchDatabase(db: number): void {
+  //   this.client.select(db, (err) => {
+  //     if (err) {
+  //       console.error(`Failed to switch to database ${db}: ${err}`);
+  //     } else {
+  //       console.log(`Switched to database ${db}`);
+  //     }
+  //   });
+  // }
 
- public getClient(): RedisClient {
+  public getClient(): RedisClient {
     return this.client;
- }
+  }
+
+  public checkIsReady(): boolean {
+    return this.client.isReady
+  }
+
+  // Events
 }
+
+const RedisController = new RedisClassController()
 
 export default RedisController;
