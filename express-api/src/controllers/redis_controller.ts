@@ -18,32 +18,61 @@ class RedisClassController {
     this.password = process.env.REDIS_PW!;
     this.db = parseInt(process.env.REDIS_DB ?? "0");
 
-    this.connectionUrl = `redis://${this.user}:${this.password}@${this.host}:${this.port}/${this.db}`;
+    this.connectionUrl = `redis://${this.user}:${this.password}@${this.host}:${this.port}`;
 
-    this.client = createClient({ url: this.connectionUrl });
+    this.client = createClient({ url: this.connectionUrl, database: this.db });
+
+    this.client.on("error", (error) =>
+      console.error(`Redis Database Error : ${error}`)
+    );
+
+    this.client.connect();
+
+    const msgLine = "Redis Database Connected";
+    console.log("-".repeat(msgLine.length + 2));
+    console.log(`|${msgLine}|`);
+    console.log("-".repeat(msgLine.length + 2));
   }
 
-  // public switchDatabase(db: number): void {
-  //   this.client.select(db, (err) => {
-  //     if (err) {
-  //       console.error(`Failed to switch to database ${db}: ${err}`);
-  //     } else {
-  //       console.log(`Switched to database ${db}`);
-  //     }
-  //   });
-  // }
+  // SET Data
+  public async setData(key: string, value: string) {
+    return this.client.set(key, value);
+  }
 
+  // READ All / By Key
+  public async readData(
+    key?: string
+  ): Promise<{ key: string; value: string }[]> {
+    if (!!key) {
+      // Reading Data by Key
+      const result = await this.client.get(key);
+      if (!!result) return [{ key: key, value: result }];
+      return [];
+    } else {
+      // Reading All Data
+      const allKeys = await this.client.keys("*");
+      const result = await Promise.all(
+        allKeys.map(async (_) => {
+          const foundOne = await this.client.get(_);
+          return { key: _, value: foundOne! };
+        })
+      );
+      return result;
+    }
+  }
+
+  // Utils
   public getClient(): RedisClient {
     return this.client;
   }
 
   public checkIsReady(): boolean {
-    return this.client.isReady
+    return this.client.isReady;
   }
 
   // Events
 }
 
-const RedisController = new RedisClassController()
+const RedisController = new RedisClassController();
 
 export default RedisController;
