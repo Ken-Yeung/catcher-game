@@ -23,12 +23,12 @@ This project demonstrates a full-stack application setup using ReactJS for the f
 - Docker Version: `4.28.0`
 
 ## Configuration
-Modify Redis Password at `./.env`
+Modify `Redis` Password at `./.env`
 ```
 REDIS_PW={Your Password}
 ```
 
-Modify ExpressJS Port at `./docker-compose.yml`
+Modify `ExpressJS` Port at `./docker-compose.yml`
 ```
 ports:
     - "{Your Port}:{Your Port}"
