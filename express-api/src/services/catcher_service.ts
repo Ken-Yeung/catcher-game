@@ -3,6 +3,9 @@ import { IRecord } from "../types/record";
 
 class CatcherServiceClass {
   public async getAllFilteredData(key?: string) {
+    // Sort by Score: Desc
+    // Sort by ID: Desc
+    // Limit: 100
     const result = await RedisController.readData(key);
 
     console.log(result);

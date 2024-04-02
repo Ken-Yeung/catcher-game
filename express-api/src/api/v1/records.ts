@@ -17,7 +17,7 @@ async function POST(req: Request, res: Response) {
 
   const [responseStatus, response] = await CatcherService.upsertData({
     name: "test",
-    score: 100,
+    score: 90,
   });
 
   if (responseStatus == "OK") {
