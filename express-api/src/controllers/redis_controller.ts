@@ -1,4 +1,5 @@
 import { createClient } from "redis";
+import { Decorator } from "../utils/decorator";
 
 type RedisClient = ReturnType<typeof createClient>;
 
@@ -11,7 +12,7 @@ export class RedisClassController {
   private db: number;
   private connectionUrl: string;
 
-  constructor() {
+  constructor(private initMsg: string = "Redis Database Connected") {
     this.host = process.env.REDIS_HOST ?? "127.0.0.1";
     this.port = parseInt(process.env.REDIS_PORT ?? "6379");
     this.user = process.env.REDIS_USER ?? "admin";
@@ -28,18 +29,20 @@ export class RedisClassController {
 
     this.client.connect();
 
-    const msgLine = "Redis Database Connected";
+    const msgLine = this.initMsg;
     console.log("-".repeat(msgLine.length + 2));
     console.log(`|${msgLine}|`);
     console.log("-".repeat(msgLine.length + 2));
   }
 
   // SET Data
+  @Decorator.checkConnection
   public async setData(key: string, value: string) {
     return this.client.set(key, value);
   }
 
   // READ All / By Key
+  @Decorator.checkConnection
   public async readData(
     key?: string
   ): Promise<{ key: string; value: string }[]> {
@@ -62,11 +65,13 @@ export class RedisClassController {
   }
 
   // Pub/Sub
+  @Decorator.checkConnection
   public async publish(channel: string, message: string) {
     // Server Use Only -> Require New Client
     await this.client.publish(channel, message);
   }
 
+  @Decorator.checkConnection
   public async subscribe(
     channel: string,
     cb: (message: string, channel: string) => void
@@ -84,8 +89,6 @@ export class RedisClassController {
   public checkIsReady(): boolean {
     return this.client.isReady;
   }
-
-  // Events
 }
 
 const RedisController = new RedisClassController();

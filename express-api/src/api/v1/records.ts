@@ -1,10 +1,13 @@
 import express, { Request, Response } from "express";
 import CatcherService from "../../services/catcher_service";
 import { IRecord } from "../../types/record";
+import { RedisClassController } from "../../controllers/redis_controller";
 
 const api = express.Router();
 
 // Need to subscribe to database changed ***
+const channelName = "leaderboard";
+const publisher = new RedisClassController("Publisher Connected");
 
 // GET Function
 async function GET(req: Request, res: Response) {
@@ -19,7 +22,8 @@ async function POST(req: Request, res: Response) {
   const body = req.body as IRecord;
 
   try {
-    if (!!!body.name || !!!body.score) return res.status(422).send("Unprocessable Entity");
+    if (!!!body.name || !!!body.score)
+      return res.status(422).send("Unprocessable Entity");
 
     const [responseStatus, response] = await CatcherService.upsertData({
       id: body.id,
@@ -28,6 +32,8 @@ async function POST(req: Request, res: Response) {
     });
 
     if (responseStatus == "OK") {
+      // Notify all subscriber that
+      publisher.publish(channelName, JSON.stringify(response));
       res.status(200).send(response);
     } else {
       console.error("*".repeat(66));
