@@ -5,8 +5,8 @@ import { RedisClassController } from "../../controllers/redis_controller";
 
 const api = express.Router();
 
-// Need to subscribe to database changed ***
-const channelName = "leaderboard";
+// *** Need to listen to database when data updated ***
+const channelName = process.env.REDIS_LEADERBORAD_CHANNEL ?? "leaderboard";
 const publisher = new RedisClassController("Publisher Connected");
 
 // GET Function
