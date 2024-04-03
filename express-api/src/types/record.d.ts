@@ -1,5 +1,5 @@
 export interface IRecord {
-    id?: string;
+    id?: number;
     name: string;
     score: number;
 }
