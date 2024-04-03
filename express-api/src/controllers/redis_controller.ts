@@ -2,7 +2,7 @@ import { createClient } from "redis";
 
 type RedisClient = ReturnType<typeof createClient>;
 
-class RedisClassController {
+export class RedisClassController {
   private client: RedisClient;
   private host: string;
   private port: number;
@@ -59,6 +59,21 @@ class RedisClassController {
       );
       return result;
     }
+  }
+
+  // Pub/Sub
+  public async publish(channel: string, message: string) {
+    // Server Use Only -> Require New Client
+    await this.client.publish(channel, message);
+  }
+
+  public async subscribe(
+    channel: string,
+    cb: (message: string, channel: string) => void
+  ) {
+    // Client Use Only -> New client each new socket collection
+    // Remember disconnect every time client disconnected
+    await this.client.subscribe(channel, cb);
   }
 
   // Utils

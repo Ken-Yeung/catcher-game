@@ -5,6 +5,7 @@ import { IRecord } from "../../types/record";
 const api = express.Router();
 
 // Need to subscribe to database changed ***
+
 // GET Function
 async function GET(req: Request, res: Response) {
   const _key = req.query.key as string; // If undefine means GET ALL else by KEY
