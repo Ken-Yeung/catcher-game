@@ -4,7 +4,7 @@ import { Decorator } from "../utils/decorator";
 type RedisClient = ReturnType<typeof createClient>;
 
 export class RedisClassController {
-  private client: RedisClient;
+  public client: RedisClient;
   private host: string;
   private port: number;
   private user: string;

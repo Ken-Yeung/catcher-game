@@ -1,3 +1,5 @@
+import { RedisClassController } from "../controllers/redis_controller";
+
 export class Decorator {
   static checkConnection(
     target: any,
@@ -7,14 +9,15 @@ export class Decorator {
     const originalMethod = descriptor.value;
 
     descriptor.value = async function (...args: any[]) {
-      const isConnected = (this as any).checkIsReady();
+      const _this = this as RedisClassController;
+      const isConnected = _this.checkIsReady();
       if (!isConnected) {
         console.error("Redis client is not ready.");
         console.error("Reconnecting.");
-        (this as any).client.connect();
+        _this.client.connect();
         console.log("Reconnected...");
       }
-      return originalMethod.apply(this, args);
+      return originalMethod.apply(_this, args);
     };
 
     return descriptor;
