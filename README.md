@@ -30,10 +30,9 @@ REDIS_PW={Your Password}
 
 Modify `ExpressJS` Port at `./docker-compose.yml`
 ```
+*Please update {Your Port} only!
 ports:
-    - "{Your Port}:{Your Port}"
-environment:
-    - PORT={Your Port}
+    - "{Your Port}:{Default Port}"
 ```
 
 * After modified configuration run will have to build the docker image again

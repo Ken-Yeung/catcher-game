@@ -30,6 +30,17 @@ services:
     depends_on:
       - redis
 
+  react-fe:
+    build: ./react-fe/.
+    container_name: catch_game_fe
+    restart: unless-stopped
+    volumes:
+      - ./react-fe:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - express-api
+
 networks:
   catch_game_network:
     driver: bridge
