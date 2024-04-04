@@ -3,13 +3,8 @@ import { IRecord } from "../types/record";
 import { generateUniqueId } from "../utils/gen_pw";
 
 class CatcherServiceClass {
-  public async getAllFilteredData(key?: string): Promise<IRecord[]> {
+  private async getSortedData(key?: string): Promise<IRecord[]> {
     const result = await RedisController.readData(key);
-
-    // Check is filter by key
-    if (!!key) {
-      result.filter((_) => parseInt(_.key) == parseInt(key)); // Using Filter instead of find for transform data shape later
-    }
 
     // Transform Data
     const response = result
@@ -22,9 +17,34 @@ class CatcherServiceClass {
         };
       })
       .sort((a, b) => b.score - a.score) // Implement Sorts: Desc
-      .splice(0, 100); // Implement Limit: 100
 
-    return response;
+    return response
+  }
+
+  public async getAllFilteredData(key?: string): Promise<IRecord[]> {
+    const sortedData = await this.getSortedData(key)
+
+    // Check is filter by key
+    if (!!key) {
+      let rank: number;
+      sortedData.filter((_, _index) => {
+        const isValid = _.id == parseInt(key)
+
+        if (isValid) {
+          rank = _index + 1
+        }
+
+        return isValid
+      }); // Using Filter instead of find for transform data shape later
+      return sortedData.map((_) => {
+        return {
+          ..._,
+          rank: rank
+        }
+      })
+    }
+
+    return sortedData.splice(0, 100); // Implement Limit: 100
   }
 
   public async upsertData(data: IRecord): Promise<[string | null, IRecord]> {
@@ -37,6 +57,7 @@ class CatcherServiceClass {
       dataId.toString(),
       JSON.stringify(remaining)
     );
+
     return [resp, { ...data, id: parseInt(dataId.toString()) }];
   }
 }
