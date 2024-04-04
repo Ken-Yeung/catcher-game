@@ -3,9 +3,11 @@ import { useMainContext } from "../contexts/main_context";
 import { IViewCollection } from "../types/view";
 import { TModalView } from "../types/main_context";
 import LeaderBoard from "../views/leaderboard";
+import InGameRank from "../views/in_game_rank";
 
 const viewCollection: IViewCollection<TModalView> = {
     ranking: <LeaderBoard />,
+    "in-game-rank": <InGameRank />
 }
 
 export default function MainModal() {
@@ -27,6 +29,7 @@ export default function MainModal() {
                 closeButton: "hover:bg-white/5 active:bg-white/10",
                 wrapper: "overflow-hidden"
             }}
+            className="z-50"
         >
             <ModalContent className="max-h-[90%]">
                 {(onClose) => (

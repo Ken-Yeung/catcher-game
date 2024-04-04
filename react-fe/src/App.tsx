@@ -26,7 +26,7 @@ function App() {
 
   return (
     <>
-      <div className={`w-full h-full flex flex-col justify-center items-center backdrop-brightness-50 ${bgImg}`}>
+      <div className={`w-full h-full flex flex-col justify-center items-center ${bgImg}`}>
         {viewCollection[view as keyof typeof viewCollection]}
       </div>
       <MainModal />

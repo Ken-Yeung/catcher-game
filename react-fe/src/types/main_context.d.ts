@@ -1,5 +1,5 @@
 export type TView = "landing" | "gaming"
-export type TModalView = "ranking"
+export type TModalView = "ranking" | "in-game-rank"
 
 export interface IMainContext {
     view: TView

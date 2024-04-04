@@ -6,6 +6,7 @@ import axios from 'axios';
 import { NextUIProvider } from "@nextui-org/react";
 import { MainContextProvider } from './contexts/main_context';
 import { LeaderboardContextProvider } from './contexts/leaderboard_context';
+import { GameContextProvider } from './contexts/game_context';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_ORIGIN
 
@@ -17,7 +18,9 @@ root.render(
     <NextUIProvider>
       <MainContextProvider>
         <LeaderboardContextProvider>
-          <App />
+          <GameContextProvider>
+            <App />
+          </GameContextProvider>
         </LeaderboardContextProvider>
       </MainContextProvider>
     </NextUIProvider>
