@@ -7,7 +7,10 @@ const socket = io(process.env.REACT_APP_API_ORIGIN!, {
     reconnectionAttempts: Infinity,
 });
 
-export const initSocket = (cb?: (data: any) => void) => {
+export const initSocket = (cb?: (data: { message: string }) => void) => {
+    if (!socket.connected) {
+        socket.connect()
+    }
     socket.on("message", (data) => {
         !!cb && cb(data)
     });

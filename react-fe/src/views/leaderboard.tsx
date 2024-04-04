@@ -11,9 +11,15 @@ export default function LeaderBoard() {
 
     useEffect(() => {
         actions.fetchRecords()
-        initSocket((resp) => {
-            console.log("resp:", resp);
+        const socket = initSocket((resp) => {
+            if (resp.message == "update") {
+                actions.fetchRecords()
+            }
         })
+        return () => {
+            socket.disconnect()
+        }
+
     }, [])
 
     return (
