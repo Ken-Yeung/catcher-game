@@ -13,7 +13,13 @@ const app = express();
 // Express Server
 const expressServer = http.createServer(app);
 // Websocket Server
-const io = new Server(expressServer);
+const io = new Server(expressServer, {
+  cors: {
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST"], // Allowed methods
+    credentials: false, // Allow credentials
+  },
+});
 const port = process.env.PORT || 3000; // Use the PORT environment variable, or default to 3000 if not set
 
 // Binding
