@@ -21,8 +21,7 @@ function App() {
   useEffect(() => {
     // Init user
     updateUser({
-      id: 774237,
-      // id: 576843,
+      id: 0,
       name: "",
       rank: 0,
       score: 0

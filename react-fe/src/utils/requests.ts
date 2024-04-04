@@ -13,6 +13,12 @@ export default class Requests {
         return await this.instance.get(path)
     }
 
+    public async post<T>(path: string, data: any): Promise<AxiosResponse<T>> {
+        return await this.instance.post(path, data, {
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+    }
+
 }
 
 export const useRequests = () => new Requests()

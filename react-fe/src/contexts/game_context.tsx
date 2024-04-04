@@ -13,7 +13,11 @@ const GameContext = createContext<IGameContext>({
         clear: () => { },
         setup: () => { }
     },
-    updateUser: () => { }
+    updateUser: () => { },
+    game: {
+        score: 0,
+        setScore: (score: number) => { }
+    }
 });
 
 export const GameContextProvider = ({ children }: { children: any }) => {
@@ -22,6 +26,7 @@ export const GameContextProvider = ({ children }: { children: any }) => {
     const [isRunning, setIsRunning] = useState(false);
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
     const [user, setUser] = useState<IUser>()
+    const [score, setScore] = useState(0)
 
     const setupTimer = () => {
         if (isRunning) {
@@ -63,7 +68,11 @@ export const GameContextProvider = ({ children }: { children: any }) => {
             setup: setupTimer
         },
         user: user,
-        updateUser
+        updateUser,
+        game: {
+            score,
+            setScore
+        }
     }}>
         {children}
     </GameContext.Provider>;

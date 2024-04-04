@@ -11,7 +11,11 @@ export interface IGameContext {
         setup: () => void
     },
     user?: IUser,
-    updateUser: (user?: IUser)=>void
+    updateUser: (user?: IUser) => void;
+    game: {
+        score: number,
+        setScore: (score: number) => void
+    }
 }
 
 export interface IUser {

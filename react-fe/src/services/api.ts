@@ -17,6 +17,18 @@ export default class CatcherAPI extends Requests {
             return []
         }
     }
+
+    public async postRecord(data: IRecord): Promise<IRecord[]>{
+        const res = await this.post<IRecord[]>(`/records`, data);
+        if (res.status == 200) {
+            return res.data
+        } else {
+            console.error(`res.status: ${res.status}`)
+            console.error(`res.data: ${res.data}`)
+            return []
+        } 
+    }
+
 }
 
 export const useCatcherAPI = () => new CatcherAPI()
