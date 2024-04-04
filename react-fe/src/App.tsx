@@ -3,6 +3,7 @@ import { useMainContext } from "./contexts/main_context";
 import { TView } from "./types/main_context";
 import { IViewCollection } from "./types/view";
 import LandingPage from "./views/landing";
+import MainModal from "./compoents/main_modal";
 
 const viewCollection: IViewCollection<TView> = {
   landing: <LandingPage />,
@@ -23,9 +24,12 @@ function App() {
   }, [view])
 
   return (
-    <div className={`w-full h-full flex flex-col justify-center items-center ${bgImg}`}>
-      {viewCollection[view as keyof typeof viewCollection]}
-    </div>
+    <>
+      <div className={`w-full h-full flex flex-col justify-center items-center ${bgImg}`}>
+        {viewCollection[view as keyof typeof viewCollection]}
+      </div>
+      <MainModal />
+    </>
   );
 }
 

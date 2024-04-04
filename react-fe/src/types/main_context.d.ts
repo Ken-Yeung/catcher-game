@@ -8,4 +8,10 @@ export interface IMainContext {
         setView: (name: TView) => void,
         setModalView: (name: TModalView) => void
     }
+    modalController: {
+        isOpen: boolean,
+        onOpen: ()=>void,
+        onClose: ()=>void,
+        onOpenChange: ()=>void
+    }
 }

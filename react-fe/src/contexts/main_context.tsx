@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { IMainContext, TModalView, TView } from "../types/main_context";
+import { useDisclosure } from "@nextui-org/react";
 
 const MainContext = createContext<IMainContext>({
     modalView: 'ranking',
@@ -7,10 +8,17 @@ const MainContext = createContext<IMainContext>({
     updateView: {
         setView: () => { },
         setModalView: () => { }
+    },
+    modalController: {
+        isOpen: false,
+        onClose: () => { },
+        onOpen: () => { },
+        onOpenChange: () => { },
     }
 });
 
 export const MainContextProvider = ({ children }: { children: any }) => {
+    const disclosure = useDisclosure();
     const [view, setView] = useState<TView>("landing")
     const [modalView, setModalView] = useState<TModalView>("ranking")
 
@@ -29,7 +37,8 @@ export const MainContextProvider = ({ children }: { children: any }) => {
             updateView: {
                 setView: updateMainView,
                 setModalView: updateModalView
-            }
+            },
+            modalController: disclosure
         }
     }>{children}</MainContext.Provider>;
 };
