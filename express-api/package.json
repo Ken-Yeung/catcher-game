@@ -2,14 +2,14 @@
   "name": "express-api",
   "version": "1.0.0",
   "description": "A Catcher Game API Server",
+  "author": "Yeung Chun Siu",
+  "license": "GNU GPLv3",
   "main": "src/index.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts"
   },
-  "author": "Yeung Chun Siu",
-  "license": "GNU GPLv3",
   "dependencies": {
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
