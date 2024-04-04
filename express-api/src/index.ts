@@ -14,9 +14,6 @@ const app = express();
 const expressServer = http.createServer(app);
 // Websocket Server
 const io = new Server(expressServer);
-// const io = new Server(expressServer, {
-//   path: socketPath,
-// });
 const port = process.env.PORT || 3000; // Use the PORT environment variable, or default to 3000 if not set
 
 // Binding
@@ -55,8 +52,8 @@ io.on("connection", (socket) => {
 
   setTimeout(async () => {
     await subscriber.subscribe(channelName, (message) => {
-      console.log("message from redis subscriber:", message);
-      socket.emit(message);
+      // Notify all subscriber to update leaderboard information
+      socket.emit("message", { message: "update" });
     });
   }, 666);
 
