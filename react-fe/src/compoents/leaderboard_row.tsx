@@ -4,11 +4,11 @@ export default function LeaderboardRow({ rank, name, score }: { rank: number; na
     return (
         <div className="grid grid-cols-3 text-xl">
             {/* Rank */}
-            <p className="pr-3 h-fit flex items-center justify-end gap-3">{rank < 4 && <span><LuCrown className={colorSwitch(rank)} /></span>} <span>{rank}</span></p>
+            <p className="pr-6 h-fit flex items-center justify-end gap-3">{rank < 4 && <span><LuCrown className={colorSwitch(rank)} /></span>} <span>{rank}</span></p>
             {/* Name */}
-            <p className="text-center px-2 whitespace-nowrap text-ellipsis overflow-hidden">{name}</p>
+            <p className="text-start px-2 whitespace-nowrap text-ellipsis overflow-hidden">{name}</p>
             {/* Score */}
-            <p className="text-start pl-3">{score}</p>
+            <p className="text-start pl-3">{score} Points</p>
         </div>
     )
 }

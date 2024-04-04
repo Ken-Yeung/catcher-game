@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { IGameContext } from "../types/game_context";
+import { IGameContext, IUser } from "../types/game_context";
 
 const GameContext = createContext<IGameContext>({
     timer: {
@@ -12,7 +12,8 @@ const GameContext = createContext<IGameContext>({
         reset: () => { },
         clear: () => { },
         setup: () => { }
-    }
+    },
+    updateUser: () => { }
 });
 
 export const GameContextProvider = ({ children }: { children: any }) => {
@@ -20,7 +21,7 @@ export const GameContextProvider = ({ children }: { children: any }) => {
     const [time, setTime] = useState(defaultCountdown)
     const [isRunning, setIsRunning] = useState(false);
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
-
+    const [user, setUser] = useState<IUser>()
 
     const setupTimer = () => {
         if (isRunning) {
@@ -45,6 +46,9 @@ export const GameContextProvider = ({ children }: { children: any }) => {
         }
     }
 
+    const updateUser = (user?: IUser) => {
+        setUser(user)
+    }
 
     return <GameContext.Provider value={{
         timer: {
@@ -57,7 +61,9 @@ export const GameContextProvider = ({ children }: { children: any }) => {
             reset: resetTimer,
             clear: clearingTimer,
             setup: setupTimer
-        }
+        },
+        user: user,
+        updateUser
     }}>
         {children}
     </GameContext.Provider>;

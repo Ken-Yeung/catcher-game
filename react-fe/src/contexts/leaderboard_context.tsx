@@ -16,7 +16,7 @@ export const LeaderboardContextProvider = ({ children }: { children: any }) => {
 
     const fetchRecords = async () => {
         const catcherApi = new CatcherAPI()
-        const resp = await catcherApi.getAllRecords()
+        const resp = await catcherApi.getRecords()
         setRecords(resp)
         return resp
     }

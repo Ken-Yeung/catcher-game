@@ -3,3 +3,7 @@ export interface IRecord {
     name: string;
     score: number;
 }
+
+export interface IMyRecord extends IRecord {
+    rank: number
+}

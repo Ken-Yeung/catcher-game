@@ -4,7 +4,7 @@ import { generateUniqueId } from "../utils/gen_pw";
 
 class CatcherServiceClass {
   private async getSortedData(key?: string): Promise<IRecord[]> {
-    const result = await RedisController.readData(key);
+    const result = await RedisController.readData();
 
     // Transform Data
     const response = result
@@ -26,22 +26,16 @@ class CatcherServiceClass {
 
     // Check is filter by key
     if (!!key) {
-      let rank: number;
-      sortedData.filter((_, _index) => {
-        const isValid = _.id == parseInt(key)
+      const foundIndex = sortedData.findIndex((_) => _.id == parseInt(key))
 
-        if (isValid) {
-          rank = _index + 1
-        }
-
-        return isValid
-      }); // Using Filter instead of find for transform data shape later
-      return sortedData.map((_) => {
-        return {
-          ..._,
-          rank: rank
-        }
-      })
+      if (foundIndex == -1) {
+        return []
+      } else {
+        return [{
+          rank: foundIndex + 1,
+          ...sortedData[foundIndex]
+        }] as any
+      }
     }
 
     return sortedData.splice(0, 100); // Implement Limit: 100

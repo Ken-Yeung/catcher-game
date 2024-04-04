@@ -43,25 +43,16 @@ export class RedisClassController {
 
   // READ All / By Key
   @Decorator.checkConnection
-  public async readData(
-    key?: string
-  ): Promise<{ key: string; value: string }[]> {
-    if (!!key) {
-      // Reading Data by Key
-      const result = await this.client.get(key);
-      if (!!result) return [{ key: key, value: result }];
-      return [];
-    } else {
-      // Reading All Data
-      const allKeys = await this.client.keys("*");
-      const result = await Promise.all(
-        allKeys.map(async (_) => {
-          const foundOne = await this.client.get(_);
-          return { key: _, value: foundOne! };
-        })
-      );
-      return result;
-    }
+  public async readData(): Promise<{ key: string; value: string }[]> {
+    // Reading All Data
+    const allKeys = await this.client.keys("*");
+    const result = await Promise.all(
+      allKeys.map(async (_) => {
+        const foundOne = await this.client.get(_);
+        return { key: _, value: foundOne! };
+      })
+    );
+    return result;
   }
 
   // Pub/Sub

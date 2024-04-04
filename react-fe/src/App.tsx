@@ -5,6 +5,7 @@ import { IViewCollection } from "./types/view";
 import LandingPage from "./views/landing";
 import MainModal from "./compoents/main_modal";
 import GamingView from "./views/gaming";
+import { useGameContext } from "./contexts/game_context";
 
 const viewCollection: IViewCollection<TView> = {
   landing: <LandingPage />,
@@ -15,6 +16,18 @@ function App() {
 
   const [bgImg, setBgImg] = useState("bg-watermark")
   const { view } = useMainContext()
+  const { updateUser } = useGameContext()
+
+  useEffect(() => {
+    // Init user
+    updateUser({
+      id: 774237,
+      // id: 576843,
+      name: "",
+      rank: 0,
+      score: 0
+    })
+  }, [])
 
   useEffect(() => {
     if (view == "gaming") {
