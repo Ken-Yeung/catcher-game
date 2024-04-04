@@ -22,7 +22,7 @@ function App() {
     // Init user
     updateUser({
       id: 0,
-      name: "",
+      name: "New Player",
       rank: 0,
       score: 0
     })
