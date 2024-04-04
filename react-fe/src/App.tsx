@@ -4,10 +4,11 @@ import { TView } from "./types/main_context";
 import { IViewCollection } from "./types/view";
 import LandingPage from "./views/landing";
 import MainModal from "./compoents/main_modal";
+import GamingView from "./views/gaming";
 
 const viewCollection: IViewCollection<TView> = {
   landing: <LandingPage />,
-  gaming: <><h1 className="text-white">Gaming Page</h1></>
+  gaming: <GamingView />
 }
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
 
   return (
     <>
-      <div className={`w-full h-full flex flex-col justify-center items-center ${bgImg}`}>
+      <div className={`w-full h-full flex flex-col justify-center items-center backdrop-brightness-50 ${bgImg}`}>
         {viewCollection[view as keyof typeof viewCollection]}
       </div>
       <MainModal />

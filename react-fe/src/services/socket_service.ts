@@ -15,5 +15,10 @@ export const initSocket = (cb?: (data: { message: string }) => void) => {
         !!cb && cb(data)
     });
 
+    socket.on("disconnect", () => {
+        socket.off();
+    });
+
+
     return socket;
 };
