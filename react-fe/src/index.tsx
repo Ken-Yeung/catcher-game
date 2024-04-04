@@ -5,6 +5,7 @@ import App from './App';
 import axios from 'axios';
 import { NextUIProvider } from "@nextui-org/react";
 import { MainContextProvider } from './contexts/main_context';
+import { LeaderboardContextProvider } from './contexts/leaderboard_context';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_ORIGIN
 
@@ -15,7 +16,9 @@ root.render(
   <React.StrictMode>
     <NextUIProvider>
       <MainContextProvider>
-        <App />
+        <LeaderboardContextProvider>
+          <App />
+        </LeaderboardContextProvider>
       </MainContextProvider>
     </NextUIProvider>
   </React.StrictMode>
