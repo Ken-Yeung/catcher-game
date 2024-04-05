@@ -19,6 +19,8 @@ export interface IGameContext {
       positions: number[][];
       updatePositions: Dispatch<SetStateAction<number[][]>>;
     };
+    start: ()=>void
+    stop: ()=>void
   };
 }
 
