@@ -98,7 +98,7 @@ export const GameContextProvider = ({ children }: { children: any }) => {
           setDroppingItemPos((prevPos) => {
             return prevPos.map((_) => {
               if (_[1] < screenHeight) {
-                return [_[0], _[1] + 3]
+                return [_[0], _[1] + 12]
               } else {
                 return _
               }
