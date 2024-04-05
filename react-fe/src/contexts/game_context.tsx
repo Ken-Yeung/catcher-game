@@ -25,11 +25,15 @@ const GameContext = createContext<IGameContext>({
     start: () => { },
     stop: () => { },
     setup: () => { },
+    player: {
+      xPos: 0,
+      updateXPos: () => { }
+    }
   },
 });
 
 export const GameContextProvider = ({ children }: { children: any }) => {
-  const defaultCountdown = 10;
+  const defaultCountdown = 60;
   const [time, setTime] = useState(defaultCountdown);
   const [isRunning, setIsRunning] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
@@ -37,6 +41,7 @@ export const GameContextProvider = ({ children }: { children: any }) => {
   const [score, setScore] = useState(0);
   const [droppingItemPos, setDroppingItemPos] = useState<number[][]>([]);
   const [gameIntervalId, setGameIntervalId] = useState<NodeJS.Timeout | null>(null);
+  const [playerXPos, setPlayerXPos] = useState(0)
 
   const setupTimer = () => {
     if (isRunning) {
@@ -88,8 +93,8 @@ export const GameContextProvider = ({ children }: { children: any }) => {
             })
           }
 
-          // Reset Counter After 20 times
-          if (counter > 19) {
+          // Reset Counter
+          if (counter > 15) {
             counter = 0
           } else {
             counter += 1
@@ -98,18 +103,16 @@ export const GameContextProvider = ({ children }: { children: any }) => {
           setDroppingItemPos((prevPos) => {
             return prevPos.map((_) => {
               if (_[1] < screenHeight) {
-                return [_[0], _[1] + 12]
+                return [_[0], _[1] + 21]
               } else {
                 return _
               }
             })
           })
-          // If Reached Bottom || Hit Character -> Hidden
 
         } else {
           // Game Stop
-          console.log("Game Stop");
-
+          // console.log("Game Stop");
         }
         return status
       })
@@ -153,7 +156,11 @@ export const GameContextProvider = ({ children }: { children: any }) => {
           },
           start: startGame,
           stop: stopGame,
-          setup: setupGame
+          setup: setupGame,
+          player: {
+            xPos: playerXPos,
+            updateXPos: setPlayerXPos
+          }
         },
       }}
     >

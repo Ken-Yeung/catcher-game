@@ -4,6 +4,8 @@ import { useMainContext } from "../contexts/main_context";
 import { useCatcherAPI } from "../services/api";
 import { IMyRecord, IRecord } from "../types/record";
 import DroppingItem from "../compoents/dropping_item";
+import Player from "../compoents/player";
+import { getRandomInt } from "../utils/ran_num";
 
 export default function GamingView() {
   const { timer, updateUser, game, user } = useGameContext();
@@ -20,6 +22,7 @@ export default function GamingView() {
   useEffect(() => {
     if (timer.isRunning) {
       game.droppingItems.updatePositions([])
+      game.setScore(0)
     }
     timer.setup();
     return () => {
@@ -83,7 +86,7 @@ export default function GamingView() {
               </>
             )}
             <br />
-            <span className="text-xl">Score: {game.score}</span>
+            <span className="text-xl bg-default-100/50 text-black p-2 rounded-xl">Score: {game.score}</span>
           </h1>
         </div>
       </div>
@@ -96,6 +99,7 @@ export default function GamingView() {
       {game.droppingItems.positions.map((_, _index) => {
         return <DroppingItem key={_index} index={_index} />
       })}
+      <Player />
     </div>
   );
 }

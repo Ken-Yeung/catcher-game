@@ -22,6 +22,10 @@ export interface IGameContext {
     start: ()=>void
     stop: ()=>void
     setup: ()=>void
+    player: {
+      xPos: number,
+      updateXPos: Dispatch<SetStateAction<number>>
+    }
   };
 }
 
