@@ -11,7 +11,7 @@ COPY package*.json ./
 COPY . .
 
 # Define the command to run the app
-CMD ["/bin/bash", "-c", "npm i && npm run build && npm run start"]
+CMD ["/bin/bash", "-c", "npm i && npm run build && npm i -g serve && serve -s build"]
 
 # Development Mode
-# CMD ["/bin/bash", "-c", "npm i && npm run dev"]
+# CMD ["/bin/bash", "-c", "npm i && npm run start"]

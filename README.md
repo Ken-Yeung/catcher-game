@@ -23,17 +23,21 @@ This project demonstrates a full-stack application setup using ReactJS for the f
 - Docker Version: `4.28.0`
 
 ## Configuration
-Modify Redis Password at `./.env`
+Modify `Redis` Password at `./.env`
 ```
 REDIS_PW={Your Password}
 ```
 
-Modify ExpressJS Port at `./docker-compose.yml`
+Modify `ExpressJS` Port at `./docker-compose.yml`
 ```
+*Please update {Your Port} only!
 ports:
-    - "{Your Port}:{Your Port}"
-environment:
-    - PORT={Your Port}
+    - "{Your Port}:{Default Port}"
+```
+Modify `ReactJS` at `./react-fe/.env`
+```
+REACT_APP_API_ORIGIN=http://localhost:8000
+REACT_APP_API_V1_BASE=/api/v1
 ```
 
 * After modified configuration run will have to build the docker image again
@@ -41,13 +45,13 @@ environment:
 ## Installation
 To run at the first time
 ```
-docker compose up -d
+docker compose up
 ```
 Wanna rebuild again
 ```
-docker compose up -d --build
+docker compose up --build
 ```
-
+* Wait for the build
 ## Usage
 - Go to [localhost website default port 3000](http://localhost:3000)
 - And Have Fun

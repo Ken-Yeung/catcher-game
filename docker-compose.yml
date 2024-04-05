@@ -10,6 +10,8 @@ services:
       - .env
     networks:
       - catch_game_network
+    # ports:
+    #   - "6379:6379"
 
   express-api:
     build: ./express-api/.
@@ -27,6 +29,17 @@ services:
       - catch_game_network
     depends_on:
       - redis
+
+  react-fe:
+    build: ./react-fe/.
+    container_name: catch_game_fe
+    restart: unless-stopped
+    volumes:
+      - ./react-fe:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - express-api
 
 networks:
   catch_game_network:

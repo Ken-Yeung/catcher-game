@@ -3,6 +3,7 @@
     /* Visit https://aka.ms/tsconfig to read more about this file */
     /* Language and Environment */
     "target": "es6", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "experimentalDecorators": true,
     /* Modules */
     "module": "commonjs", /* Specify what module code is generated. */
     "rootDir": "./src", /* Specify the root folder within your source files. */

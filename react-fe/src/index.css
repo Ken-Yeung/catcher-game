@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  overflow: hidden;
+}
+
+html, body, #root, #root div {
+  height: 100%;
+  width: 100%;
+}
+
+
+.leaderboard-wrapper {
+  --sb-track-color: #19172c;
+  --sb-thumb-color: #a9a9a9;
+  --sb-size: 9px;
+}
+
+.leaderboard-wrapper::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+.leaderboard-wrapper::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+.leaderboard-wrapper::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+  
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .leaderboard-wrapper {
+    scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
+}
