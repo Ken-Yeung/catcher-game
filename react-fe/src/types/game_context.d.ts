@@ -21,6 +21,7 @@ export interface IGameContext {
     };
     start: ()=>void
     stop: ()=>void
+    setup: ()=>void
   };
 }
 

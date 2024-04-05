@@ -13,9 +13,14 @@ export default function GamingView() {
   // Initialize
   useEffect(() => {
     timer.setIsRunning(true);
+    // Set a game interval to run the game logic
+    game.setup()
   }, []);
 
   useEffect(() => {
+    if (timer.isRunning) {
+      game.droppingItems.updatePositions([])
+    }
     timer.setup();
     return () => {
       timer.clear();
@@ -63,9 +68,8 @@ export default function GamingView() {
           }}
         >
           <h1
-            className={`${
-              status ? "text-6xl" : "text-3xl"
-            } font-bold text-white text-center`}
+            className={`${status ? "text-6xl" : "text-3xl"
+              } font-bold text-white text-center`}
           >
             {status ? (
               <>
@@ -89,9 +93,9 @@ export default function GamingView() {
   return (
     <div id="main-game-field" className="w-full h-full relative">
       <HeaderLabel time={timer.time} status={timer.isRunning} />
-      {/* <DroppingItem isGood />
-      <DroppingItem />
-      <DroppingItem /> */}
+      {game.droppingItems.positions.map((_, _index) => {
+        return <DroppingItem key={_index} index={_index} />
+      })}
     </div>
   );
 }

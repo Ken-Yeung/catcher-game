@@ -10,7 +10,7 @@ import { GrPowerReset } from "react-icons/gr";
 import { useMainContext } from "../contexts/main_context";
 
 export default function InGameRank() {
-  const { user, updateUser, timer } = useGameContext();
+  const { user, updateUser, timer, game } = useGameContext();
   const catcherAPI = useCatcherAPI();
   const [myRecord, setMyRecord] = useState<IMyRecord[]>([]);
   const [nameCache, setNameCache] = useState(user?.name);
@@ -52,8 +52,7 @@ export default function InGameRank() {
   };
 
   const handleOnPlay = () => {
-    timer.setIsRunning(true);
-    timer.setup();
+    game.start()
     modalController.onClose();
   };
 
