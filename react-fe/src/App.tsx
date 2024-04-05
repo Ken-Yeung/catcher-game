@@ -38,7 +38,7 @@ function App() {
 
   return (
     <>
-      <div className={`w-full h-full flex flex-col justify-center items-center ${bgImg}`}>
+      <div className={`w-full h-full flex flex-col justify-center items-center ${bgImg} bg-center bg-cover`}>
         {viewCollection[view as keyof typeof viewCollection]}
       </div>
       <MainModal />
