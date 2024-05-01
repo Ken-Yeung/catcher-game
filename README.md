@@ -14,7 +14,6 @@ Description: A catch game web application
   - [Usage](#usage)
 
 ## About
-Thank you for considering me for the Software Engineer role at Sandbox VR. I'm excited about the opportunity to showcase my skills through the coding project you've provided. I appreciate the detailed instructions and the assets included. I'm eager to contribute to your team and look forward to the next steps in the process. 
 
 This project demonstrates a full-stack application setup using ReactJS for the frontend, ExpressJS for the backend, Redis as the database, and Docker for containerization. It showcases a scalable and maintainable setup for modern web applications.
 
